@@ -29,31 +29,7 @@ interface Props {
 
 */}
 
-export async function generateMetadata(
-  { params }: Props
-): Promise<Metadata> {
-  const resource = await Database.getResourceById(params.id)
-
-  if (!resource) {
-    throw notFound()
-  }
-
-  return {
-    title: `${resource.title}`,
-    description: resource.description,
-    openGraph: {
-      title: resource.title,
-      description: resource.description,
-      images: [
-        {
-          url: resource.thumbnail || '/images/placeholder.jpg',
-          alt: resource.title,
-        },
-      ],
-    },
-  }
-}
-
+// TODO
 
 {/* Tarefa #3 - Adptar a página de um recurso consoante o recurso selecionado
   
@@ -64,13 +40,7 @@ export async function generateMetadata(
   
 */}
 
-export default async function Page({ params }: Props) {
-
-  const resource = await Database.getResourceById(params.id)
-
-  if (!resource) {
-    throw notFound()
-  }
+export default async function Page({ }: Props) {
 
   return (
     <PaneContainer>
@@ -93,24 +63,28 @@ export default async function Page({ params }: Props) {
             <div className="2xl:col-span-2">
               <div className="flex w-full flex-col space-y-4 text-muted-foreground">
                 <div className="flex items-center justify-between space-x-2 text-xs text-muted-foreground">
-                  <span>{formatDate(resource.createdAt)}</span>
+                  <span>21 de outubro</span>
+                  {/* 
                   <Counter resourceId={resource.id} />
+                  */}
                 </div>
                 <div className="space-y-4">
                   <Link
                     className="flex flex-col transition-colors hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                    href={resource.url}
+                    href="https://tts.niaefeup.pt"
                     target="_blank"
                   >
                     <h1 className="text-xl text-foreground">
-                      {resource.title}
+                      TTS
                     </h1>
                     <div className="flex items-center space-x-1 text-sm">
                       <ExternalLinkIcon size={14} />
-                      <span>{new URL(resource.url).hostname}</span>
+                      <span>tts.niaefeup.pt</span>
                     </div>
                   </Link>
-                  <p>{resource.description}</p>
+                  <p>
+                    O TTS é uma plataforma web para a criação de horários escolares. Desenvolvida pelo NIAEFEUP.
+                  </p>
                 </div>
               </div>
             </div>
@@ -118,12 +92,12 @@ export default async function Page({ params }: Props) {
               <div className="flex w-full justify-center">
                 <Link
                   className="relative inline-flex overflow-hidden rounded-lg bg-secondary"
-                  href={resource.url}
+                  href="https://tts.niaefeup.pt"
                   target="_blank"
                 >
                   <Image
-                    src={resource.thumbnail || '/images/placeholder.jpg'}
-                    alt={resource.title}
+                    src={'/images/placeholder.jpg'}
+                    alt="TTS"
                     width={1024}
                     height={537}
                     unoptimized

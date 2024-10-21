@@ -16,21 +16,18 @@ import Database from '@/lib/database';
 export default async function Page() {
   const resources = await Database.getAllResources();
 
-  if (!resources.length) {
-    return (
-      <div className="flex items-center justify-center py-16 text-muted-foreground">
-        <span>No resources found.</span>
-      </div>
-    )
-  }
+  {/* Descomenta para testares o componente ResourceCard
+  return <ResourceCard resource={
+    {
+      id: '671547acd4ab25fe00067015',
+      title: 'Moodle UP 24/25',
+      description: 'O Moodle UP 24/25 é a plataforma de e-learning da Universidade do Porto.',
+      thumbnail: 'https://moodle2425.up.pt/theme/image.php/boost4uporto/theme/1729005794/frontpage/fpimg-01',
+      url: 'https://moodle2425.up.pt/',
+      createdAt: new Date('2024-10-20T18:10:51.773Z'),
+      updatedAt: new Date('2024-10-20T18:10:51.773Z'),
+    }
+  } />
+   */}
 
-  return (
-    <ul className="space-y-0.5 py-2 xl:py-4">
-      {resources.map((resource) => (
-        <li key={resource.id}>
-          <ResourceCard resource={resource} />
-        </li>
-      ))}
-    </ul>
-  )
 }
