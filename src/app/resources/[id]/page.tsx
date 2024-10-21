@@ -82,7 +82,7 @@ export default async function Page({ params }: Props) {
         </Button>
 
         {/* (Bonus) - Meter este botão a copiar o link do recurso */}
-        <Button variant="ghost" size="icon" disabled>
+        <Button variant="ghost" size="icon">
           <ShareIcon size={16} />
         </Button>
 
