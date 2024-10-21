@@ -13,27 +13,28 @@ interface Props {
     - Mostra o número de reações
     - (Bonus) Guarda o número de reações no localStorage e acessa o valor guardado ao carregar a página
 */}
-export default function Counter({ resourceId }: Props) {
-    const [counter, setCounter] = useState(0);
+
+
+function useLocalStorage(storageItem: string, defaultValue: number): [number, (value: number) => void] {
+    const [value, setValue] = useState(localStorage.getItem(storageItem) ?? defaultValue);
 
     useEffect(() => {
-        const storedCounter = localStorage.getItem(resourceId);
-        if (storedCounter) {
-            setCounter(parseInt(storedCounter));
-        }
-    }, []);
+        localStorage.setItem(storageItem, value.toString());
+    }, [storageItem, value]);
 
-    const incrementCounter = () => {
-        setCounter(counter + 1);
-        localStorage.setItem(resourceId, (counter + 1).toString());
-    }
+    return [Number(value), setValue];
+}
+
+
+export default function Counter({ resourceId }: Props) {
+    const [counter, setCounter] = useLocalStorage(resourceId, 0);
 
     return (
         <div className="flex justify-between gap-2">
             <p>Reacted with this resource {counter} times</p>
             <button
                 className="inline-flex size-4 transition-colors hover:text-accent-foreground"
-                onClick={incrementCounter}
+                onClick={() => setCounter(counter + 1)}
             >
                 <PlusIcon size={16} />
             </button>
