@@ -1,23 +1,16 @@
 import { Toaster } from 'react-hot-toast'
-
 import type { Metadata, Viewport } from 'next'
-
 import { GeistSans } from 'geist/font/sans'
-
-import { Providers } from '@/components/providers'
-import { Sidebar } from '@/components/sidebar'
-
-import { cn } from '@/lib/utils'
-
 import '@/styles/globals.css'
+import { cn } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${process.env.VERCEL_URL}`),
   title: {
-    default: 'Next Daily - Sharing things about Next.js',
-    template: `%s - Next Daily`,
+    default: 'Sharing things about L.EIC',
+    template: `%s - L.EIC`,
   },
   description: '',
 }
@@ -30,10 +23,11 @@ export const viewport: Viewport = {
 }
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode,
+  feed: React.ReactNode
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({ children, feed }: Props) {
   return (
     <html className="dark" style={{ colorScheme: 'dark' }} lang="en">
       <body
@@ -42,10 +36,19 @@ export default function Layout({ children }: Props) {
           GeistSans.variable,
         )}
       >
-        <Providers>
-          <Sidebar />
-          <main className="flex-1">{children}</main>
-        </Providers>
+        <main className="flex-1">
+          <div className="flex">
+            {/* Feed */}
+            {feed}
+
+            {/* Resource content */}
+            <div
+              className='flex-1 flex-col lg:flex flex'
+            >
+              {children}
+            </div>
+          </div>
+        </main>
         <Toaster />
       </body>
     </html>

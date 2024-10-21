@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef } from 'react'
 import { useFormStatus } from 'react-dom'
 import toast from 'react-hot-toast'
 
@@ -8,10 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-import { submitResource } from '@/services/actions/resources'
+import { submitResource } from '@/lib/actions/resources'
+import { useRouter } from 'next/navigation'
 
 export function SubmitResourceForm() {
-  const ref = useRef<HTMLFormElement>(null)
+  const router = useRouter();
 
   return (
     <form
@@ -24,9 +24,8 @@ export function SubmitResourceForm() {
         }
 
         toast.success('Successfully sent!')
-        ref.current?.reset()
+        router.push('/')
       }}
-      ref={ref}
     >
       <div className="space-y-4">
         <div className="space-y-2">
